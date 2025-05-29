@@ -2,7 +2,7 @@
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-//#include "../DotTreeChecker/GraphChecker.h" // Проверь и поправь путь, если надо
+
 
 namespace DotTreeCheckerTests
 {
