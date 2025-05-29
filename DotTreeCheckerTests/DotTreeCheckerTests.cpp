@@ -4,10 +4,6 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 //#include "../DotTreeChecker/GraphChecker.h" // Проверь и поправь путь, если надо
 
-
-
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
 namespace DotTreeCheckerTests
 {
 	TEST_CLASS(SanityCheck)
