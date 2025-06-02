@@ -5,12 +5,20 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
 
+
+/**
+ * @file test_DFS.cpp
+ * @brief Набор модульных тестов для функции DFS из graph_utils.h
+ */
+
+
 namespace DFSTests
 {
 	TEST_CLASS(DFSTests)
 	{
 	public:
 
+		/// @brief Тест DFS: граф из одной вершины без дуг
 		TEST_METHOD(DFS_singleVertex)
 		{
 			vector<vector<int>> adjMatrix = { {0} };
@@ -23,6 +31,7 @@ namespace DFSTests
 			Assert::IsTrue(way.empty());
 		}
 
+		/// @brief Тест DFS: две изолированные вершины
 		TEST_METHOD(DFS_twoNotConnectedVertex)
 		{
 			vector<vector<int>> adjMatrix = { {0,0}, {0,0} };
@@ -38,6 +47,7 @@ namespace DFSTests
 
 		}
 
+		/// @brief Тест DFS: две вершины, соединенные дугой
 		TEST_METHOD(DFS_twoConnectedVertex)
 		{
 			vector<vector<int>> adjMatrix = { {0,1}, {0,0} };
@@ -55,6 +65,7 @@ namespace DFSTests
 			Assert::AreEqual(2, adjMatrix[0][1]);
 		}
 
+		/// @brief Тест DFS: две связанные и одна изолированная вершина
 		TEST_METHOD(DFS_twoConnectedVertex_oneIsolated) 
 		{
 			vector<vector<int>> adjMatrix = { {0,1,0},{0,0,0},{0,0,0} };
@@ -73,6 +84,7 @@ namespace DFSTests
 			Assert::AreEqual(2, adjMatrix[0][1]);
 		}
 
+		/// @brief Тест DFS: цикл из трех вершин
 		TEST_METHOD(DFS_threeVerticesCycle)
 		{
 			vector<vector<int>> adjMatrix = { {0,1,0},{0,0,1},{1,0,0} };
@@ -92,6 +104,7 @@ namespace DFSTests
 
 		}
 
+		/// @brief Тест DFS: две слабо связанные компоненты
 		TEST_METHOD(DFS_twoWeaklyConnectedComponents)
 		{
 			vector<vector<int>> adjMatrix = { {0,1,1,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,1},{0,0,0,0,0} };
@@ -110,6 +123,7 @@ namespace DFSTests
 			Assert::AreEqual(1, adjMatrix[3][4]);
 		}
 
+		/// @brief Тест DFS: полный граф из трех вершин
 		TEST_METHOD(DFS_completeGraphThreeVertices)
 		{
 			vector<vector<int>> adjMatrix = { {0,1,1},{1,0,1},{1,1,0} };
@@ -127,6 +141,7 @@ namespace DFSTests
 			Assert::IsTrue(adjMatrix == correctAdjMatrix);
 		}
 
+		/// @brief Тест DFS: вершина без входящих дуг (не корень)
 		TEST_METHOD(DFS_vertexWithoutIncoming_notRoot)
 		{
 			vector<vector<int>> adjMatrix = { {0,1,1,0},{0,0,0,0},{0,0,0,0},{0,0,1,0} };
@@ -145,6 +160,7 @@ namespace DFSTests
 			Assert::IsTrue(adjMatrix == correctAdjMatrix);
 		}
 
+		/// @brief Тест DFS: линейный граф из четырех вершин
 		TEST_METHOD(DFS_linearGraphFourVertices)
 		{
 			vector<vector<int>> adjMatrix = { {0,1,0,0},{0,0,1,0},{0,0,0,1},{0,0,0,0} };
@@ -162,6 +178,7 @@ namespace DFSTests
 			Assert::IsTrue(adjMatrix == correctAdjMatrix);
 		}
 
+		/// @brief Тест DFS: дерево из 11 вершин
 		TEST_METHOD(DFS_treeElevenVertices)
 		{
 			vector<vector<int>> adjMatrix = { {0,1,0,0,1,1,0,0,0,0,0},
