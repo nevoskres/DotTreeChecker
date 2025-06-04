@@ -147,9 +147,9 @@ namespace findBestSkeletonTests
 			};
 			auto skeleton = findBestSkeleton(adjMatrix);
 			Assert::AreEqual(size_t(10), skeleton.size());
-			Assert::IsTrue((skeleton[0] == make_pair(4, 1)) && (skeleton[1] == make_pair(1, 2)) && (skeleton[2] == make_pair(2, 3))
-				&& (skeleton[3] == make_pair(4, 0)) && (skeleton[4] == make_pair(0, 6)) && (skeleton[5] == make_pair(6, 8))
-				&& (skeleton[6] == make_pair(0, 7)) && (skeleton[7] == make_pair(7, 9)) && (skeleton[8] == make_pair(4, 5))
+			Assert::IsTrue((skeleton[0] == make_pair(4, 0)) && (skeleton[1] == make_pair(0, 6)) && (skeleton[2] == make_pair(6, 8))
+				&& (skeleton[3] == make_pair(0, 7)) && (skeleton[4] == make_pair(7, 9)) && (skeleton[5] == make_pair(4, 1))
+				&& (skeleton[6] == make_pair(1, 2)) && (skeleton[7] == make_pair(2, 3)) && (skeleton[8] == make_pair(4, 5))
 				&& (skeleton[9] == make_pair(5, 10)));
 		}
 
