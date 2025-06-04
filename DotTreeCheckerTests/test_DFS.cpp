@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../DotTreeChecker/graph_utils.h"
 
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
 
