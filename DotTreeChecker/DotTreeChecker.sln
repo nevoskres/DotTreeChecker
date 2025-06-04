@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36121.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotTreeChecker", "DotTreeChecker.vcxproj", "{B89ED54D-C060-4776-9C3B-FEAE8DB73E8E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{072F49AB-2516-40B1-A19C-AFA0BB8C27D6} = {072F49AB-2516-40B1-A19C-AFA0BB8C27D6}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotTreeCheckerTests", "..\DotTreeCheckerTests\DotTreeCheckerTests.vcxproj", "{810E3381-737D-62B9-D590-3265229DBA4C}"
 EndProject
