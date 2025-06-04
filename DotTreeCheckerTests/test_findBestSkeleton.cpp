@@ -120,8 +120,9 @@ namespace findBestSkeletonTests
 				{0,0,0,0,0}
 			};
 			auto skeleton = findBestSkeleton(adjMatrix);
-			Assert::AreEqual(size_t(1), skeleton.size());
+			Assert::AreEqual(size_t(2), skeleton.size());
 			Assert::IsTrue(skeleton[0] == make_pair(0, 1));
+			Assert::IsTrue(skeleton[1] == make_pair(0, 4));
 		}
 
 		/// @brief Тест findBestSkeleton: полный граф из трёх вершин
