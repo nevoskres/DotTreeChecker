@@ -378,8 +378,8 @@ namespace parseDotFileTests
 
 			Graph g = parseDotFile(input);
 
-			Assert::AreEqual(1, g.getAdjacencyMatrix()[1][2]);
-			Assert::AreEqual(0, g.getAdjacencyMatrix()[2][1]);
+			Assert::AreEqual(1, g.getAdjacencyMatrix()[0][1]);
+			Assert::AreEqual(0, g.getAdjacencyMatrix()[1][0]);
 		}
 
 
