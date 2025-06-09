@@ -1,6 +1,7 @@
 #pragma once
-
+#include"Graph.h"
 #include<vector>
+#include<string>
 
 
 /**
@@ -32,3 +33,24 @@ void DFS(int start, std::vector<bool>& visited, std::vector<std::vector<int>>& a
 std::vector<std::pair<int, int>> findBestSkeleton(std::vector<std::vector<int>> matrixCopy);
 
 
+/**
+ * @brief ”дал€ет ведущие и завершающие пробельные символы из строки.
+ *
+ * @param s ¬ходна€ строка, из которой нужно удалить пробелы по кра€м.
+ * @return Ќова€ строка без пробелов в начале и конце.
+ */
+
+std::string trim(const std::string& s);
+
+
+/**
+ * @brief ѕарсит граф, описанный в формате DOT, и строит его матрицу смежности.
+ *
+ * @param lines ¬ектор строк, содержащий DOT-описание ориентированного графа.
+ * @return —труктура Graph, содержаща€:
+ * - исходные строки DOT-кода,
+ * - матрицу смежности графа,
+ * - отображение имен вершин в индексы и обратно.
+ */
+
+Graph parseDotFile(const std::vector<std::string>& lines);
