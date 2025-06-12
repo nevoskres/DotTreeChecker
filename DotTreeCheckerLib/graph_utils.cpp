@@ -145,3 +145,18 @@ string trim(const string& s)
 	}
 	return s.substr(start, end - start);
 }
+
+vector<string> cleanLines(const vector<string>& lines) 
+{
+	vector<string> result;
+	for (const auto& line : lines) {
+		
+		string trimmed = trim(line);
+		
+		if (!trimmed.empty()) 
+		{
+			result.push_back(trimmed);
+		}
+	}
+	return result;
+}
