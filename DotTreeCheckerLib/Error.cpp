@@ -485,13 +485,20 @@ void Error::findErrors(const vector<string>& lines)
 
 
     // Проверка, что строка с закрывающей скобкой ровно "}"
-    if (nonEmpty >= static_cast<int>(lines.size()) || trim(lines[nonEmpty]) != "}")
-    {
-        // Если строка с закрывающей скобкой отсутствует или содержит лишние символы — ошибка
-        if (nonEmpty < static_cast<int>(lines.size()))
+    if (nonEmpty >= static_cast<int>(lines.size())) {
+        // Нет строки с закрывающей фигурной скобкой
+        errors.emplace_back(curlyBracketError, nonEmpty + 1, "отсутствует закрывающая фигурная скобка (последняя строка файла)");
+    }
+    else {
+        string trimmedLine = trim(lines[nonEmpty]);
+        if (trimmedLine.empty() || trimmedLine[0] != '}') {
+            // Строка есть, но в ней нет закрывающей скобки
+            errors.emplace_back(curlyBracketError, nonEmpty + 1, lines[nonEmpty]);
+        }
+        else if (trimmedLine != "}") {
+            // Есть закрывающая скобка, но после неё лишние символы
             errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, lines[nonEmpty]);
-        else
-            errors.emplace_back(curlyBracketError, nonEmpty + 1, "отсутствует закрывающая фигурная скобка");
+        }
     }
 
     // Проверка лишних строк и символов после закрытия тела графа
