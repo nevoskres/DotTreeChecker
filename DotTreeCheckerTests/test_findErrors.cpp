@@ -349,7 +349,7 @@ namespace findErrorsTests
 
             Assert::AreEqual(size_t(1), errorObj.getErrors().size());
             Assert::AreEqual(curlyBracketError, errorObj.getErrors()[0].getType());
-            Assert::AreEqual(5, errorObj.getErrors()[0].getLineNumber());
+            Assert::AreEqual(6, errorObj.getErrors()[0].getLineNumber());
         }
 
         /// @brief Тест findErrors: ошибка - лишний символ псле тела графа 
