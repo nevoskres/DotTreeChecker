@@ -227,9 +227,15 @@ namespace findErrorsTests
 
             errorObj.findErrors(input);
 
-            Assert::AreEqual(size_t(1), errorObj.getErrors().size());
-            Assert::AreEqual(countVerticesError, errorObj.getErrors()[0].getType());
-            Assert::AreEqual(14, errorObj.getErrors()[0].getLineNumber());
+            Assert::AreEqual(size_t(3), errorObj.getErrors().size());
+
+            Assert::AreEqual(nameVerticesError, errorObj.getErrors()[0].getType());
+            Assert::AreEqual(12, errorObj.getErrors()[0].getLineNumber());
+            Assert::AreEqual(nameVerticesError, errorObj.getErrors()[1].getType());
+            Assert::AreEqual(13, errorObj.getErrors()[1].getLineNumber());
+
+            Assert::AreEqual(countVerticesError, errorObj.getErrors()[2].getType());
+            Assert::AreEqual(14, errorObj.getErrors()[2].getLineNumber());
         }
 
         /// @brief Тест findErrors: ошибка - в графе есть кратные связи
