@@ -180,7 +180,7 @@ void Error::findErrors(const vector<string>& lines)
         {
             if (line.find("--") != string::npos)
             {
-                errors.emplace_back(notDiGraph, nonEmpty + 1, line);
+                errors.emplace_back(connectionsSyntaxError, nonEmpty + 1, line);
             }
             else if (line.find('>') != string::npos || line.find('<') != string::npos)
             {
