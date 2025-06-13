@@ -464,12 +464,12 @@ void Error::findErrors(const vector<string>& lines)
 
         // Проверка на лишние символы (кроме допустимых: цифры, ->, пробелы, ;)
         // Лишние символы — все кроме: 0-9, '-', '>', ';', ' ', '\t'
-        for (char ch : line) {
+      /*  for (char ch : line) {
             if (!(isdigit(static_cast<unsigned char>(ch)) || ch == '-' || ch == '>' || ch == ';' || isspace(static_cast<unsigned char>(ch)))) {
                 errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, line);
                 break;
             }
-        }
+        }*/
     }
 
     if (nonEmpty == static_cast<int>(lines.size())) {
