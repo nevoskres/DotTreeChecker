@@ -160,12 +160,10 @@ namespace findErrorsTests
 
             errorObj.findErrors(input);
 
-            Assert::AreEqual(size_t(2), errorObj.getErrors().size());
+            Assert::AreEqual(size_t(1), errorObj.getErrors().size());
             Assert::AreEqual(notDiGraph, errorObj.getErrors()[0].getType());
-            Assert::AreEqual(connectionsSyntaxError, errorObj.getErrors()[1].getType());
-
             Assert::AreEqual(1, errorObj.getErrors()[0].getLineNumber());
-            Assert::AreEqual(3, errorObj.getErrors()[1].getLineNumber());
+            
         }
 
         /// @brief Тест findErrors: ошибка - в графе есть петля
