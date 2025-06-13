@@ -27,6 +27,19 @@ namespace
         }
         return std::string::npos;
     }
+
+    string toLowerCopy(const string& s) {
+        string res = s;
+        transform(res.begin(), res.end(), res.begin(), [](unsigned char c) { return tolower(c); });
+        return res;
+    }
+
+    string getFirstWord(const string& s) {
+        size_t pos = s.find_first_of(" \t");
+        if (pos == string::npos)
+            return s;
+        return s.substr(0, pos);
+    }
 }
 
 
@@ -295,38 +308,74 @@ void Error::findErrors(const vector<string>& lines)
         return;
     }
 
-    // Проверка первой непустой строки: корректность объявления графа и имени
-    const string& firstLine = trim(lines[nonEmpty]);
-    size_t pos = findCaseInsensitive(firstLine, "digraph");
-    if (pos == string::npos) {
-        if (findCaseInsensitive(firstLine, "graph") != string::npos) {
-            errors.emplace_back(notDiGraph, nonEmpty + 1, firstLine);
+    //// Проверка первой непустой строки: корректность объявления графа и имени
+    //const string& firstLine = trim(lines[nonEmpty]);
+    //size_t pos = findCaseInsensitive(firstLine, "digraph");
+    //if (pos == string::npos) {
+    //    if (findCaseInsensitive(firstLine, "graph") != string::npos) {
+    //        errors.emplace_back(notDiGraph, nonEmpty + 1, firstLine);
+    //    }
+    //    else {
+    //        errors.emplace_back(graphsNotationSyntaxError, nonEmpty + 1, firstLine);
+    //    }
+    //    pos = 0; 
+    //}
+    //else {
+    //    pos += 7; // длина "digraph"
+    //}
+
+    //// Извлечение и проверка имени графа (пропускаем пробелы после digraph)
+    //while (pos < firstLine.size() && isspace(static_cast<unsigned char>(firstLine[pos]))) ++pos;
+    //string graphName = firstLine.substr(pos);
+    //graphName = trim(graphName);
+
+    //if (graphName.empty()) {
+    //    errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLine);
+    //}
+    //else {
+    //    for (char c : graphName) {
+    //        if (!(isalnum(static_cast<unsigned char>(c)) || c == '_')) {
+    //            errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLine);
+    //            break;
+    //        }
+    //    }
+    //}
+
+    const string& firstLineRaw = trim(lines[nonEmpty]);
+    string firstWord = getFirstWord(firstLineRaw);
+    string firstWordLower = toLowerCopy(firstWord);
+
+    if (firstWordLower != "digraph") {
+        if (firstWordLower == "graph") {
+            errors.emplace_back(notDiGraph, nonEmpty + 1, firstLineRaw);
         }
         else {
-            errors.emplace_back(graphsNotationSyntaxError, nonEmpty + 1, firstLine);
+            errors.emplace_back(graphsNotationSyntaxError, nonEmpty + 1, firstLineRaw);
         }
-        pos = 0; 
-    }
-    else {
-        pos += 7; // длина "digraph"
     }
 
-    // Извлечение и проверка имени графа (пропускаем пробелы после digraph)
-    while (pos < firstLine.size() && isspace(static_cast<unsigned char>(firstLine[pos]))) ++pos;
-    string graphName = firstLine.substr(pos);
-    graphName = trim(graphName);
+    // Если слово digraph корректно, дальше извлекаем имя
+    if (firstWordLower == "digraph") {
+        size_t posAfterFirstWord = firstLineRaw.find_first_not_of(" \t", firstWord.size());
+        string graphName;
+        if (posAfterFirstWord == string::npos)
+            graphName = "";
+        else
+            graphName = trim(firstLineRaw.substr(posAfterFirstWord));
 
-    if (graphName.empty()) {
-        errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLine);
-    }
-    else {
-        for (char c : graphName) {
-            if (!(isalnum(static_cast<unsigned char>(c)) || c == '_')) {
-                errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLine);
-                break;
+        if (graphName.empty()) {
+            errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLineRaw);
+        }
+        else {
+            for (char c : graphName) {
+                if (!(isalnum(static_cast<unsigned char>(c)) || c == '_')) {
+                    errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLineRaw);
+                    break;
+                }
             }
         }
     }
+
 
     // Пропуск пустых строк после заголовка
     ++nonEmpty;
