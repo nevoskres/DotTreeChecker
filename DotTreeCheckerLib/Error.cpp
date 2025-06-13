@@ -83,6 +83,203 @@ const vector<Error>& Error::getErrors() const
 }
 
 
+//void Error::findErrors(const vector<string>& lines)
+//{
+//    errors.clear();
+//
+//    // Пропуск пустых строк в начале файла
+//    int nonEmpty = 0;
+//    while (nonEmpty < static_cast<int>(lines.size()) && trim(lines[nonEmpty]).empty())
+//        ++nonEmpty;
+//
+//    // Проверка: если файл полностью пустой или только из пробелов
+//    if (nonEmpty == static_cast<int>(lines.size())) {
+//        errors.emplace_back(emptyFile, 0, "");
+//        return;
+//    }
+//
+//    // Проверка первой непустой строки: корректность объявления графа и имени
+//    const string& firstLine = trim(lines[nonEmpty]);
+//    size_t pos = findCaseInsensitive(firstLine, "digraph");
+//    if (pos == string::npos) {
+//        if (findCaseInsensitive(firstLine, "graph") != string::npos) {
+//            errors.emplace_back(notDiGraph, nonEmpty + 1, firstLine);
+//        }
+//        else {
+//            errors.emplace_back(graphsNotationSyntaxError, nonEmpty + 1, firstLine);
+//        }
+//        pos = 0; 
+//    }
+//    else {
+//        pos += 7; // длина "digraph"
+//    }
+//
+//    // Извлечение и проверка имени графа (пропускаем пробелы после digraph)
+//    while (pos < firstLine.size() && isspace(static_cast<unsigned char>(firstLine[pos]))) ++pos;
+//    string graphName = firstLine.substr(pos);
+//    graphName = trim(graphName);
+//
+//    if (graphName.empty()) {
+//        errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLine);
+//    }
+//    else {
+//        for (char c : graphName) {
+//            if (!(isalnum(static_cast<unsigned char>(c)) || c == '_')) {
+//                errors.emplace_back(graphNameSyntaxError, nonEmpty + 1, firstLine);
+//                break;
+//            }
+//        }
+//    }
+//
+//    // Пропуск пустых строк после заголовка
+//    ++nonEmpty;
+//    while (nonEmpty < static_cast<int>(lines.size()) && trim(lines[nonEmpty]).empty())
+//        ++nonEmpty;
+//
+//    // Проверка наличия открывающей фигурной скобки '{'
+//    if (nonEmpty >= static_cast<int>(lines.size())) {
+//        errors.emplace_back(curlyBracketError, nonEmpty + 1, "нет строки с открывающей фигурной скобкой");
+//        return;
+//    }
+//
+//    string openBraceLine = trim(lines[nonEmpty]);
+//    if (openBraceLine.find('{') == string::npos) {
+//        errors.emplace_back(curlyBracketError, nonEmpty + 1, lines[nonEmpty]);
+//    }
+//    else if (openBraceLine != "{") {
+//        errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, lines[nonEmpty]);
+//    }
+//
+//    // Основной анализ тела графа
+//    set<pair<string, string>> edges;
+//    set<string> vertices;
+//    int edgeCount = 0;
+//
+//    ++nonEmpty;
+//    for (; nonEmpty < static_cast<int>(lines.size()); ++nonEmpty) {
+//        string line = trim(lines[nonEmpty]);
+//        if (line.empty()) continue;
+//
+//        // Завершение проверки при нахождении закрывающей скобки
+//        if (line == "}") break;
+//
+//        // Проверка на множественные связи в одной строке
+//        size_t arrowCount = 0, searchPos = 0;
+//        while ((searchPos = line.find("->", searchPos)) != string::npos) {
+//            ++arrowCount;
+//            searchPos += 2;
+//        }
+//        if (arrowCount > 1) {
+//            errors.emplace_back(connectionsError, nonEmpty + 1, line);
+//            continue;
+//        }
+//
+//        // Проверка синтаксиса дуги (->)
+//        size_t arrowPos = line.find("->");
+//        if (arrowPos == string::npos)
+//        {
+//            if (line.find("--") != string::npos)
+//            {
+//                errors.emplace_back(connectionsSyntaxError, nonEmpty + 1, line);
+//            }
+//            else if (line.find('>') != string::npos || line.find('<') != string::npos)
+//            {
+//                errors.emplace_back(connectionsSyntaxError, nonEmpty + 1, line);
+//            }
+//            continue;
+//        }
+//
+//        // Извлечение вершин и их валидация
+//        string from = trim(line.substr(0, arrowPos));
+//        string to = trim(line.substr(arrowPos + 2));
+//
+//        // Если в конце 'to' есть ';', убрать его
+//        if (!to.empty() && to.back() == ';') {
+//            to.pop_back();
+//            to = trim(to);
+//        }
+//
+//        auto isNumber = [](const string& s)
+//            {
+//                return !s.empty() && all_of(s.begin(), s.end(), ::isdigit);
+//            };
+//
+//        if (!isNumber(from))
+//        {
+//            errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+//        }
+//        else if (stoi(from) > 10)
+//        {
+//            errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+//        }
+//
+//        if (!isNumber(to))
+//        {
+//            errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+//        }
+//        else if (stoi(to) > 10) {
+//            errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+//        }
+//
+//        // Проверка наличия петли
+//        if (from == to)
+//        {
+//            errors.emplace_back(loopError, nonEmpty + 1, line);
+//        }
+//
+//        // Проверка кратных связей
+//        pair<string, string> edge = { from, to };
+//        if (edges.count(edge))
+//        {
+//            errors.emplace_back(multipleConnectionsError, nonEmpty + 1, line);
+//        }
+//        else
+//        {
+//            edges.insert(edge);
+//        }
+//
+//        // Учет вершин и количества дуг
+//        vertices.insert(from);
+//        vertices.insert(to);
+//
+//        ++edgeCount;
+//
+//        // Проверка на лишние символы (кроме допустимых: цифры, ->, пробелы, ;)
+//        // Лишние символы — все кроме: 0-9, '-', '>', ';', ' ', '\t'
+//        for (char ch : line) {
+//            if (!(isdigit(static_cast<unsigned char>(ch)) || ch == '-' || ch == '>' || ch == ';' || isspace(static_cast<unsigned char>(ch)))) {
+//                errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, line);
+//                break;
+//            }
+//        }
+//    }
+//
+//    // Проверка на пустой граф (нет вершин)
+//    if (vertices.empty())
+//    {
+//        errors.emplace_back(emptyGraph, nonEmpty + 1, "{");
+//    }
+//    else if (vertices.size() > 10)
+//    {
+//        errors.emplace_back(countVerticesError, nonEmpty + 1, "");
+//    }
+//
+//    // Проверка на превышение допустимого числа дуг
+//    if (edgeCount > 110)
+//    {
+//        errors.emplace_back(countConnectionsError, nonEmpty + 1, "");
+//    }
+//
+//
+//    for (int i = nonEmpty + 1; i < static_cast<int>(lines.size()); ++i) {
+//        string line = trim(lines[i]);
+//        if (!line.empty()) {
+//            errors.emplace_back(extraCharacterAfterGraphError, i + 1, lines[i]);
+//        }
+//    }
+//}
+
+
 void Error::findErrors(const vector<string>& lines)
 {
     errors.clear();
@@ -108,7 +305,7 @@ void Error::findErrors(const vector<string>& lines)
         else {
             errors.emplace_back(graphsNotationSyntaxError, nonEmpty + 1, firstLine);
         }
-        pos = 0; // чтобы избежать использования в дальнейшем
+        pos = 0; 
     }
     else {
         pos += 7; // длина "digraph"
@@ -191,19 +388,29 @@ void Error::findErrors(const vector<string>& lines)
 
         // Извлечение вершин и их валидация
         string from = trim(line.substr(0, arrowPos));
-        string to = trim(line.substr(arrowPos + 2));
+        string toPart = trim(line.substr(arrowPos + 2));
 
-        // Если в конце 'to' есть ';', убрать его
-        if (!to.empty() && to.back() == ';') {
-            to.pop_back();
-            to = trim(to);
+        // Если в конце 'toPart' есть ';', убрать его
+        if (!toPart.empty() && toPart.back() == ';') {
+            toPart.pop_back();
+            toPart = trim(toPart);
         }
+
+        // Выделяем число в 'to' и возможные лишние символы
+        size_t posNum = 0;
+        while (posNum < toPart.size() && isdigit(static_cast<unsigned char>(toPart[posNum]))) {
+            ++posNum;
+        }
+
+        string toNumber = toPart.substr(0, posNum);
+        string extra = toPart.substr(posNum);
 
         auto isNumber = [](const string& s)
             {
                 return !s.empty() && all_of(s.begin(), s.end(), ::isdigit);
             };
 
+        // Проверка from
         if (!isNumber(from))
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
@@ -213,22 +420,28 @@ void Error::findErrors(const vector<string>& lines)
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
         }
 
-        if (!isNumber(to))
+        // Проверка toNumber
+        if (!isNumber(toNumber))
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
         }
-        else if (stoi(to) > 10) {
+        else if (stoi(toNumber) > 10) {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
         }
 
+        // Если после числа в 'to' есть лишние символы — ошибка лишнего символа в теле графа
+        if (!extra.empty()) {
+            errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, line);
+        }
+
         // Проверка наличия петли
-        if (from == to)
+        if (from == toNumber)
         {
             errors.emplace_back(loopError, nonEmpty + 1, line);
         }
 
         // Проверка кратных связей
-        pair<string, string> edge = { from, to };
+        pair<string, string> edge = { from, toNumber };
         if (edges.count(edge))
         {
             errors.emplace_back(multipleConnectionsError, nonEmpty + 1, line);
@@ -240,7 +453,7 @@ void Error::findErrors(const vector<string>& lines)
 
         // Учет вершин и количества дуг
         vertices.insert(from);
-        vertices.insert(to);
+        vertices.insert(toNumber);
 
         ++edgeCount;
 
@@ -270,7 +483,18 @@ void Error::findErrors(const vector<string>& lines)
         errors.emplace_back(countConnectionsError, nonEmpty + 1, "");
     }
 
-    // Проверка лишних строк после закрытия тела графа
+
+    // Проверка, что строка с закрывающей скобкой ровно "}"
+    if (nonEmpty >= static_cast<int>(lines.size()) || trim(lines[nonEmpty]) != "}")
+    {
+        // Если строка с закрывающей скобкой отсутствует или содержит лишние символы — ошибка
+        if (nonEmpty < static_cast<int>(lines.size()))
+            errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, lines[nonEmpty]);
+        else
+            errors.emplace_back(curlyBracketError, nonEmpty + 1, "отсутствует закрывающая фигурная скобка");
+    }
+
+    // Проверка лишних строк и символов после закрытия тела графа
     for (int i = nonEmpty + 1; i < static_cast<int>(lines.size()); ++i) {
         string line = trim(lines[i]);
         if (!line.empty()) {
@@ -278,8 +502,6 @@ void Error::findErrors(const vector<string>& lines)
         }
     }
 }
-
-
 
 
 
