@@ -464,29 +464,35 @@ void Error::findErrors(const vector<string>& lines)
                 return !s.empty() && all_of(s.begin(), s.end(), ::isdigit);
             };
 
+        bool vertexNameErrorFound = false;
+
         // Проверка from
         if (!isNumber(from))
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+            vertexNameErrorFound = true;
         }
         else if (stoi(from) > 10)
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+            vertexNameErrorFound = true;
         }
 
         // Проверка toNumber
         if (!isNumber(toNumber))
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+            vertexNameErrorFound = true;
         }
         else if (stoi(toNumber) > 10) {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
+            vertexNameErrorFound = true;
         }
 
         // Если после числа в 'to' есть лишние символы — ошибка лишнего символа в теле графа
-        if (!extra.empty()) {
+        /*if (!extra.empty()) {
             errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, line);
-        }
+        }*/
 
         // Проверка наличия петли
         if (from == toNumber)
@@ -519,6 +525,14 @@ void Error::findErrors(const vector<string>& lines)
                 break;
             }
         }*/
+        if (!vertexNameErrorFound) {
+            for (char ch : line) {
+                if (!(isdigit(static_cast<unsigned char>(ch)) || ch == '-' || ch == '>' || ch == ';' || isspace(static_cast<unsigned char>(ch)))) {
+                    errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, line);
+                    break;
+                }
+            }
+        }
     }
 
     if (nonEmpty == static_cast<int>(lines.size())) {
