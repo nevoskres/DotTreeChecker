@@ -166,6 +166,7 @@
     </ClCompile>
     <ClCompile Include="test_DFS.cpp" />
     <ClCompile Include="test_findBestSkeleton.cpp" />
+    <ClCompile Include="test_findErrors.cpp" />
     <ClCompile Include="test_parseDotFile.cpp" />
   </ItemGroup>
   <ItemGroup>
