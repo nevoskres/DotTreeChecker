@@ -32,7 +32,7 @@ namespace
 
 Error::Error(ErrorType t, int n, const string& str) : type(t), numberStr(n), lineStr(str)
 {
-    message = "строка " + std::to_string(n + 1) + ": \"" + str + "\"";
+    message = "строка " + std::to_string(n) + ": \"" + str + "\"";
 }
 
 
@@ -358,7 +358,12 @@ void Error::findErrors(const vector<string>& lines)
         if (line.empty()) continue;
 
         // Завершение проверки при нахождении закрывающей скобки
-        if (line == "}") break;
+        if (!line.empty() && line[0] == '}') {
+            if (line.size() > 1) {
+                errors.emplace_back(extraCharacterAfterGraphError, nonEmpty + 1, line);
+            }
+            break; // закрывающая скобка найдена — заканчиваем анализ тела графа
+        }
 
         // Проверка на множественные связи в одной строке
         size_t arrowCount = 0, searchPos = 0;
@@ -467,6 +472,19 @@ void Error::findErrors(const vector<string>& lines)
         }
     }
 
+    if (nonEmpty == static_cast<int>(lines.size())) {
+        // Закрывающая скобка не найдена
+        errors.emplace_back(curlyBracketError, nonEmpty + 1, "отсутствует закрывающая фигурная скобка");
+    }
+    else {
+        // Проверка лишних строк после закрывающей скобки
+        for (int i = nonEmpty + 1; i < static_cast<int>(lines.size()); ++i) {
+            if (!trim(lines[i]).empty()) {
+                errors.emplace_back(extraCharacterAfterGraphError, i + 1, lines[i]);
+            }
+        }
+    }
+
     // Проверка на пустой граф (нет вершин)
     if (vertices.empty())
     {
@@ -483,31 +501,8 @@ void Error::findErrors(const vector<string>& lines)
         errors.emplace_back(countConnectionsError, nonEmpty + 1, "");
     }
 
+   
 
-    // Проверка, что строка с закрывающей скобкой ровно "}"
-    if (nonEmpty >= static_cast<int>(lines.size())) {
-        // Нет строки с закрывающей фигурной скобкой
-        errors.emplace_back(curlyBracketError, nonEmpty + 1, "отсутствует закрывающая фигурная скобка (последняя строка файла)");
-    }
-    else {
-        string trimmedLine = trim(lines[nonEmpty]);
-        if (trimmedLine.empty() || trimmedLine[0] != '}') {
-            // Строка есть, но в ней нет закрывающей скобки
-            errors.emplace_back(curlyBracketError, nonEmpty + 1, lines[nonEmpty]);
-        }
-        else if (trimmedLine != "}") {
-            // Есть закрывающая скобка, но после неё лишние символы
-            errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, lines[nonEmpty]);
-        }
-    }
-
-    // Проверка лишних строк и символов после закрытия тела графа
-    for (int i = nonEmpty + 1; i < static_cast<int>(lines.size()); ++i) {
-        string line = trim(lines[i]);
-        if (!line.empty()) {
-            errors.emplace_back(extraCharacterAfterGraphError, i + 1, lines[i]);
-        }
-    }
 }
 
 
