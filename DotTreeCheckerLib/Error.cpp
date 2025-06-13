@@ -344,10 +344,12 @@ void Error::findErrors(const vector<string>& lines)
     const string& firstLineRaw = trim(lines[nonEmpty]);
     string firstWord = getFirstWord(firstLineRaw);
     string firstWordLower = toLowerCopy(firstWord);
+  
 
     if (firstWordLower != "digraph") {
         if (firstWordLower == "graph") {
             errors.emplace_back(notDiGraph, nonEmpty + 1, firstLineRaw);
+            return;
         }
         else {
             errors.emplace_back(graphsNotationSyntaxError, nonEmpty + 1, firstLineRaw);
