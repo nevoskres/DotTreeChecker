@@ -89,3 +89,24 @@ struct outMessForGraph
     /// и рекомендацией по удалению изолированных вершин после удаления дуг.
     const std::string graphIsNotTree = "c[color = red label = \"Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить\"]";
 };
+
+
+/**
+ * @brief Генерирует DOT-граф из матрицы смежности и пути.
+ *
+ * @details Вершины и дуги, не входящие в путь, помечаются красным цветом.
+ * В конце добавляется специальная вершина c[...] с пояснением:
+ * - Если все вершины и дуги входят в путь — граф дерево.
+ * - Иначе — пометка об изолированных вершинах при удалении дуг.
+ *
+ * @param adjacencyMatrix Матрица смежности.
+ * @param indexToVertex Обратное отображение: индекс -> имя вершины.
+ * @param dotStringGraph Изначальное DOT-описание графа
+ * @param path Путь в виде пар (откуда, куда), на основе индексов.
+ * @return Вектор строк — DOT-описание графа.
+ */
+std::vector<std::string> writeDotFile(
+    const std::vector<std::vector<int>>& adjacencyMatrix,
+    const std::vector<int>& indexToVertex,
+    const std::vector<std::pair<int, int>>& path,
+    const std::vector<std::string> dotStringGraph);
