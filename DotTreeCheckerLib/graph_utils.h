@@ -119,4 +119,5 @@ std::vector<std::string> writeDotFile(
     const std::vector<std::vector<int>>& adjacencyMatrix,
     const std::vector<int>& indexToVertex,
     const std::vector<std::pair<int, int>>& path,
-    const std::vector<std::string>& dotStringGraph);
+    const std::vector<std::string>& dotStringGraph,
+    const outMessForGraph& messages);
