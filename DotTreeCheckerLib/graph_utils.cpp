@@ -160,3 +160,24 @@ vector<string> cleanLines(const vector<string>& lines)
 	}
 	return result;
 }
+
+
+string extractGraphName(const vector<string>& dotLines) {
+	if (dotLines.empty()) return "G";
+
+	const string& line = dotLines.front();
+
+	size_t pos = line.find("digraph");
+	if (pos == string::npos) return "G";
+
+	pos += 7;
+
+	while (pos < line.size() && isspace(static_cast<unsigned char>(line[pos]))) ++pos;
+
+	string name;
+	while (pos < line.size() && (isalnum(static_cast<unsigned char>(line[pos])) || line[pos] == '_')) {
+		name += line[pos++];
+	}
+
+	return name.empty() ? "G" : name;
+}
