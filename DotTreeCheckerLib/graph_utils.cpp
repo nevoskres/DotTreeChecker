@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "graph_utils.h"
+#include<set>
 using namespace std;
 
 void DFS(int start, vector<bool>& visited, vector<vector<int>>& adjMatrix, vector<pair<int, int>>& way)
@@ -162,7 +163,8 @@ vector<string> cleanLines(const vector<string>& lines)
 }
 
 
-string extractGraphName(const vector<string>& dotLines) {
+string extractGraphName(const vector<string>& dotLines) 
+{
 	if (dotLines.empty()) return "G";
 
 	const string& line = dotLines.front();
@@ -180,4 +182,80 @@ string extractGraphName(const vector<string>& dotLines) {
 	}
 
 	return name.empty() ? "G" : name;
+}
+
+vector<string> writeDotFile(
+	const vector<vector<int>>& adjacencyMatrix,
+	const vector<int>& indexToVertex,
+	const vector<pair<int, int>>& path,
+	const vector<string>& dotStringGraph,
+	const outMessForGraph& messages)
+{
+	set<pair<int, int>> pathEdges(path.begin(), path.end());
+	set<int> pathVertices;
+	for (const auto& edge : path) {
+		int from = edge.first;
+		int to = edge.second;
+		pathVertices.insert(from);
+		pathVertices.insert(to);
+	}
+
+	vector<string> dot;
+	string graphName = extractGraphName(dotStringGraph);
+	dot.push_back("digraph " + graphName);
+	dot.push_back("{");
+
+	int n = static_cast<int>(adjacencyMatrix.size());
+	bool allInPath = true;
+
+	for (int i = 0; i < n; ++i) {
+		bool hasOutgoing = false, hasIncoming = false;
+		for (int j = 0; j < n; ++j) {
+			if (adjacencyMatrix[i][j] != 0) hasOutgoing = true;
+			if (adjacencyMatrix[j][i] != 0) hasIncoming = true;
+			if (hasOutgoing && hasIncoming) break;
+		}
+
+		if (!hasOutgoing && !hasIncoming && pathVertices.count(i) == 0) {
+			dot.push_back("    " + to_string(indexToVertex[i]) + " " + messages.forRemove + ";");
+			allInPath = false;
+		}
+	}
+
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			if (adjacencyMatrix[i][j] != 0) {
+				string from = to_string(indexToVertex[i]);
+				string to = to_string(indexToVertex[j]);
+				string line = "    " + from + " -> " + to;
+
+				if (pathEdges.count({ i, j }) == 0) {
+					line += " " + messages.forRemove;
+					allInPath = false;
+
+					if (pathVertices.count(i) == 0) {
+						dot.push_back("    " + from + " " + messages.forRemove + ";");
+						pathVertices.insert(i);
+					}
+					if (pathVertices.count(j) == 0) {
+						dot.push_back("    " + to + " " + messages.forRemove + ";");
+						pathVertices.insert(j);
+					}
+				}
+
+				line += ";";
+				dot.push_back(line);
+			}
+		}
+	}
+
+	if (allInPath) {
+		dot.push_back("    " + messages.graphIsTree + ";");
+	}
+	else {
+		dot.push_back("    " + messages.graphIsNotTree + ";");
+	}
+
+	dot.push_back("}");
+	return dot;
 }
