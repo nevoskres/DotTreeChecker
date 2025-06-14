@@ -92,6 +92,15 @@ struct outMessForGraph
 
 
 /**
+ * @brief Извлекает имя графа из первой строки DOT-описания.
+ * @param dotLines Вектор строк, представляющий DOT-описание графа. Первая строка должна содержать объявление графа.
+ * @return Имя графа.
+ */
+
+std::string extractGraphName(const std::vector<std::string>& dotLines);
+
+
+/**
  * @brief Генерирует DOT-граф из матрицы смежности и пути.
  *
  * @details Вершины и дуги, не входящие в путь, помечаются красным цветом.
