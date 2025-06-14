@@ -85,10 +85,5 @@ public:
 	 */
 	const std::vector<std::vector<int>>& getAdjacencyMatrix() const;
 
-	/**
-	 * @brief Извлекает имя графа из первой строки DOT-описания.
-	 * @return Имя графа.
-	 */
-	std::string extractGraphName() const;
 };
 

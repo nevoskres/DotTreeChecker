@@ -50,23 +50,3 @@ const std::vector<std::vector<int>>& Graph::getAdjacencyMatrix() const
 	return adjacencyMatrix;
 }
 
-std::string Graph::extractGraphName() const 
-{
-    if (dotStringGraph.empty()) return "G";
-
-    const std::string& line = dotStringGraph.front();
-
-    size_t pos = line.find("digraph");
-    if (pos == std::string::npos) return "G";
-
-    pos += 7; 
-
-    while (pos < line.size() && isspace(static_cast<unsigned char>(line[pos]))) ++pos;
-
-    std::string name;
-    while (pos < line.size() && (isalnum(static_cast<unsigned char>(line[pos])) || line[pos] == '_')) {
-        name += line[pos++];
-    }
-
-    return name.empty() ? "G" : name;
-}
