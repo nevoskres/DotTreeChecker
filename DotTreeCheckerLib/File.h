@@ -21,7 +21,7 @@
  * @return Вектор строк, считанных из файла.
  */
 
-MYLIB_API  std::vector<std::string> readFile(const std::string& filename);
+MYLIB_API  std::vector<std::string> readFile(const std::string& filename,bool& error);
 
 
 /**
@@ -33,4 +33,4 @@ MYLIB_API  std::vector<std::string> readFile(const std::string& filename);
  * @return Пара путей: <входной_файл, выходной_файл>.
  */
 
-MYLIB_API std::pair<std::string, std::string> getFilePaths(int argc, char* argv[]);
+MYLIB_API std::pair<std::string, std::string> extractFilePaths(int argc, char* argv[]);
