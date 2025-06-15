@@ -29,24 +29,19 @@ int main(int argc, char* argv[])
 	_setmode(_fileno(stdout), _O_U16TEXT);
 	_setmode(_fileno(stderr), _O_U16TEXT);
 
-	std::wcout << L"выводится wcout" << std::endl;
-	std::wcerr << L"выводится wcerr" << std::endl;
-
-	//Считать из параметров командной строки путь ко входному файлу
 	auto filePaths = extractFilePaths(argc,argv);
 	string inputFP = filePaths.first;
-	//Считать из параметров командной строки путь для выходного файла
 	string outputFP = filePaths.second;
 
 	
 	if (inputFP.empty())
 	{
-		wcerr << "Не указан входной файл\n";
+		wcerr << L"Не указан входной файл\n";
 		return 1;
 	}
 	else if (outputFP.empty())
 	{
-		wcerr << "Не указан выходной файл\n";
+		wcerr << L"Не указан выходной файл\n";
 		return 1;
 	}
 

@@ -20,7 +20,7 @@ vector<string> readFile(const wstring& filename, bool& error)
 
 	if (!file.is_open())
 	{
-		wcerr << "Не удалось открыть файл: "<<filename<<"\n";
+		wcerr << L"Не удалось открыть файл: "<<filename<<"\n";
 		error = true;
 		return lines;
 	}
@@ -48,14 +48,14 @@ pair<string, string> extractFilePaths(int argc, char* argv[])
 	else if (argc == 1)
 	{
 
-		wcout << "Введите путь входного файла: ";
+		wcout << L"Введите путь входного файла: ";
 		getline(cin, inputFile);
-		wcout << "Введите путь выходного файла: ";
+		wcout << L"Введите путь выходного файла: ";
 		getline(cin, outputFile);
 	}
 	else
 	{
-		wcerr << "Ошибка: неверное количество аргументов\n" << "Использование: " << (argc > 0 ? argv[0] : "program") << " <input_file> <output_file>" << endl;
+		wcerr << L"Ошибка: неверное количество аргументов\n" << L"Использование: " << (argc > 0 ? argv[0] : "program") << " <input_file> <output_file>" << endl;
 		inputFile = "";
 		outputFile = "";
 	}
@@ -68,7 +68,7 @@ bool writeLinesToFile(const vector<string>& lines, const wstring& filename)
 	ofstream outFile(filename);
 	if (!outFile.is_open())
 	{
-		wcerr << "Не удалось открыть файл для записи: " << filename << "\n";
+		wcerr << L"Не удалось открыть файл для записи: " << filename << "\n";
 		return false;
 	}
 
