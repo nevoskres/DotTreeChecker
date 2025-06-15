@@ -22,3 +22,15 @@
  */
 
 MYLIB_API  std::vector<std::string> readFile(const std::string& filename);
+
+
+/**
+ * @brief Получает пути к входному и выходному файлам из аргументов командной строки.
+ *
+ * @param argc Количество аргументов командной строки.
+ * @param argv Массив аргументов командной строки.
+ *
+ * @return Пара путей: <входной_файл, выходной_файл>.
+ */
+
+MYLIB_API std::pair<std::string, std::string> getFilePaths(int argc, char* argv[]);
