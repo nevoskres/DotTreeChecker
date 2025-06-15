@@ -21,7 +21,7 @@
  * @return Вектор строк, считанных из файла.
  */
 
-MYLIB_API  std::vector<std::string> readFile(const std::string& filename,bool& error);
+MYLIB_API  std::vector<std::string> readFile(const std::wstring& filename,bool& error);
 
 
 /**
@@ -45,4 +45,4 @@ MYLIB_API std::pair<std::string, std::string> extractFilePaths(int argc, char* a
  * @return false Если не удалось открыть файл для записи.
  */
 
-MYLIB_API bool writeLinesToFile(const std::vector<std::string>& lines, const std::string& filename);
+MYLIB_API bool writeLinesToFile(const std::vector<std::string>& lines, const std::wstring& filename);

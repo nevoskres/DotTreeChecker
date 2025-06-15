@@ -4,11 +4,14 @@
 #include<vector>
 #include <iostream>
 #include<fstream>
+#include <io.h>
+#include <fcntl.h>
 #include "Error.h"
   
 using namespace std;
 
-vector<string> readFile(const string& filename, bool& error)
+
+vector<string> readFile(const wstring& filename, bool& error)
 {
 
 	vector<string> lines;
@@ -17,7 +20,7 @@ vector<string> readFile(const string& filename, bool& error)
 
 	if (!file.is_open())
 	{
-		cerr << "Не удалось открыть файл: "<<filename<<"\n";
+		wcerr << "Не удалось открыть файл: "<<filename<<"\n";
 		error = true;
 		return lines;
 	}
@@ -45,14 +48,14 @@ pair<string, string> extractFilePaths(int argc, char* argv[])
 	else if (argc == 1)
 	{
 
-		cout << "Введите путь входного файла: ";
+		wcout << "Введите путь входного файла: ";
 		getline(cin, inputFile);
-		cout << "Введите путь выходного файла: ";
+		wcout << "Введите путь выходного файла: ";
 		getline(cin, outputFile);
 	}
 	else
 	{
-		cerr << "Ошибка: неверное количество аргументов\n" << "Использование: " << (argc > 0 ? argv[0] : "program") << " <input_file> <output_file>" << endl;
+		wcerr << "Ошибка: неверное количество аргументов\n" << "Использование: " << (argc > 0 ? argv[0] : "program") << " <input_file> <output_file>" << endl;
 		inputFile = "";
 		outputFile = "";
 	}
@@ -60,12 +63,12 @@ pair<string, string> extractFilePaths(int argc, char* argv[])
 	return make_pair(inputFile, outputFile);
 }
 
-bool writeLinesToFile(const std::vector<std::string>& lines, const std::string& filename)
+bool writeLinesToFile(const vector<string>& lines, const wstring& filename)
 {
-	std::ofstream outFile(filename);
+	ofstream outFile(filename);
 	if (!outFile.is_open())
 	{
-		cerr << "Не удалось открыть файл для записи: " << filename << "\n";
+		wcerr << "Не удалось открыть файл для записи: " << filename << "\n";
 		return false;
 	}
 
