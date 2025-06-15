@@ -3,12 +3,13 @@
 #include<vector>
 #include<map>
 #include <string>
+#include "Export.h"
 
 
 /**
 * @brief Класс для хранения графа, заданного в формате DOT, и его представлений.
 */
-class Graph
+class MYLIB_API Graph
 {
 private:
 	/**

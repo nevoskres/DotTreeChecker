@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "Export.h"
 
 /**
  * @file Error.h
@@ -17,7 +18,7 @@
  * @enum ErrorType
  * @brief Типы ошибок, которые могут возникать при обработке графа.
  */
-enum ErrorType {
+enum MYLIB_API ErrorType {
     noError,                   /**< Ошибок нет */
     inFileNotExist,            /**< Файл не найден */
     outFileCreateFail,         /**< Не удалось создать выходной файл */
@@ -45,7 +46,7 @@ enum ErrorType {
  * @details Хранит тип ошибки, номер строки, текст строки с ошибкой и сообщение об ошибке.
  * Также содержит контейнер для накопления нескольких ошибок.
  */
-class Error
+class MYLIB_API Error
 {
 private:
     /**

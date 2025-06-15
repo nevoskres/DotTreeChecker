@@ -2,6 +2,7 @@
 #include<vector>
 #include<string>
 #include"Graph.h"
+#include "Export.h"
 
 
 /**
@@ -19,7 +20,7 @@
 * @param way Вектор дуг, формирующих путь остова (будет заполнен).
 */
 
-void DFS(int start, std::vector<bool>& visited, std::vector<std::vector<int>>& adjMatrix, std::vector<std::pair<int, int>>& way);
+MYLIB_API void DFS(int start, std::vector<bool>& visited, std::vector<std::vector<int>>& adjMatrix, std::vector<std::pair<int, int>>& way);
 
 
 /**
@@ -30,7 +31,7 @@ void DFS(int start, std::vector<bool>& visited, std::vector<std::vector<int>>& a
 * @return Вектор дуг, составляющих найденный остов.
 */
 
-std::vector<std::pair<int, int>> findBestSkeleton(std::vector<std::vector<int>> matrixCopy);
+MYLIB_API  std::vector<std::pair<int, int>> findBestSkeleton(std::vector<std::vector<int>> matrixCopy);
 
 
 /**
@@ -40,7 +41,7 @@ std::vector<std::pair<int, int>> findBestSkeleton(std::vector<std::vector<int>> 
  * @return Новая строка без пробелов в начале и конце.
  */
 
-std::string trim(const std::string& s);
+MYLIB_API  std::string trim(const std::string& s);
 
 
 /**
@@ -52,7 +53,7 @@ std::string trim(const std::string& s);
  * @return Новый вектор строк без пустых и с обрезанными пробелами.
  */
 
-std::vector<std::string> cleanLines(const std::vector<std::string>& lines);
+MYLIB_API  std::vector<std::string> cleanLines(const std::vector<std::string>& lines);
 
 
 /**
@@ -65,7 +66,7 @@ std::vector<std::string> cleanLines(const std::vector<std::string>& lines);
  * - отображение имен вершин в индексы и обратно.
  */
 
-Graph parseDotFile(const std::vector<std::string>& lines);
+MYLIB_API  Graph parseDotFile(const std::vector<std::string>& lines);
 
 
 /**
@@ -75,7 +76,7 @@ Graph parseDotFile(const std::vector<std::string>& lines);
  * Эти строки могут использоваться в графической визуализации (например, с помощью Graphviz).
  */
 
-struct outMessForGraph
+struct MYLIB_API outMessForGraph
 {
     /// Строка DOT-подобного кода для отображения сообщения о том, что граф является деревом.
     /// Зеленый цвет используется для выделения положительного результата.
@@ -97,7 +98,7 @@ struct outMessForGraph
  * @return Имя графа.
  */
 
-std::string extractGraphName(const std::vector<std::string>& dotLines);
+MYLIB_API std::string extractGraphName(const std::vector<std::string>& dotLines);
 
 
 /**
@@ -115,7 +116,7 @@ std::string extractGraphName(const std::vector<std::string>& dotLines);
  * @return Вектор строк — DOT-описание графа.
  */
 
-std::vector<std::string> writeDotFile(
+MYLIB_API  std::vector<std::string> writeDotFile(
     const std::vector<std::vector<int>>& adjacencyMatrix,
     const std::vector<int>& indexToVertex,
     const std::vector<std::pair<int, int>>& path,

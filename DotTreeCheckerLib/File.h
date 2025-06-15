@@ -1,6 +1,7 @@
 #pragma once
 #include<vector>
 #include<string>
+#include "Export.h"
 
 
 /**
@@ -20,4 +21,4 @@
  * @return Вектор строк, считанных из файла.
  */
 
-std::vector<std::string> readFile(const std::string& filename);
+MYLIB_API  std::vector<std::string> readFile(const std::string& filename);
