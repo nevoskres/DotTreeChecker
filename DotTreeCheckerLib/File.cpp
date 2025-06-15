@@ -37,12 +37,25 @@ pair<string, string> extractFilePaths(int argc, char* argv[])
 	string inputFile;
 	string outputFile;
 
-	if (argc >= 3) 
+	if (argc == 3) 
 	{
 		inputFile = argv[1];   
 		outputFile = argv[2];  
 	}
-	
+	else if (argc == 1)
+	{
+
+		cout << "¬ведите путь входного файла: ";
+		getline(cin, inputFile);
+		cout << "¬ведите путь выходного файла: ";
+		getline(cin, outputFile);
+	}
+	else
+	{
+		cerr << "ќшибка: неверное количество аргументов\n" << "»спользование: " << (argc > 0 ? argv[0] : "program") << " <input_file> <output_file>" << endl;
+		inputFile = "";
+		outputFile = "";
+	}
 
 	return make_pair(inputFile, outputFile);
 }
