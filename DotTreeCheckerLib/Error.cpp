@@ -49,9 +49,9 @@ Error::Error(ErrorType t, int n, const string& str) : type(t), numberStr(n), lin
 }
 
 
-string Error::generateErrorMessage(ErrorType type) const
+std::string Error::generateErrorMessage() const 
 {
-    switch (type)
+    switch (type) 
     {
     case noError: return "";
     case emptyFile: return "Ошибка: пустой файл";
@@ -72,6 +72,7 @@ string Error::generateErrorMessage(ErrorType type) const
     }
     return "Неизвестная ошибка — " + message;
 }
+
 
 ErrorType Error::getType() const
 {
