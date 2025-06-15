@@ -49,12 +49,7 @@ enum MYLIB_API ErrorType {
 class MYLIB_API Error
 {
 private:
-    /**
-     * @brief Генерирует текст сообщения об ошибке на основе типа ошибки
-     * @param type Тип ошибки
-     * @return Текст сообщения
-     */
-    std::string generateErrorMessage(ErrorType type) const;
+    
 
     ErrorType type = noError;             ///< Тип ошибки (по умолчанию noError)
     int numberStr = -1;                   ///< Номер строки с ошибкой
@@ -63,6 +58,14 @@ private:
     std::vector<Error> errors;            ///< Контейнер для накопления ошибок
 
 public:
+
+    /**
+     * @brief Генерирует текст сообщения об ошибке на основе типа ошибки
+     * @param type Тип ошибки
+     * @return Текст сообщения
+     */
+    std::string generateErrorMessage(ErrorType type) const;
+
     /**
      * @brief Конструктор по умолчанию
      */
@@ -111,17 +114,6 @@ public:
      * @param lines Вектор строк, содержащих описание графа
      */
     void findErrors(const std::vector<std::string>& lines);
-
-
-    /**
-    * @brief Добавляет новую ошибку в список ошибок.
-    *
-    * @param type Тип ошибки (ErrorType), который необходимо зафиксировать.
-    * @param n Номер строки, в которой обнаружена ошибка (от 1 и выше).
-    * @param str Строка текста, содержащая ошибку.
-    */
-
-    void addError(ErrorType type, int n, const std::string& str);
 
 };
 
