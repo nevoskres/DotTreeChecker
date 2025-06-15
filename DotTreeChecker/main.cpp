@@ -9,6 +9,17 @@
 
 using namespace std;
 
+
+std::wstring utf8ToUtf16(const std::string& utf8)
+{
+
+	if (utf8.empty()) return L"";
+	int sizeNeeded = MultiByteToWideChar(CP_UTF8, 0, utf8.data(), (int)utf8.size(), nullptr, 0);
+	std::wstring wstrTo(sizeNeeded, 0);
+	MultiByteToWideChar(CP_UTF8, 0, utf8.data(), (int)utf8.size(), &wstrTo[0], sizeNeeded);
+	return wstrTo;
+}
+
 int main(int argc, char* argv[])
 {
 	SetConsoleOutputCP(CP_UTF8);
@@ -73,14 +84,4 @@ int main(int argc, char* argv[])
 	}
 
 	return 0;
-}
-
-std::wstring utf8ToUtf16(const std::string& utf8)
-{
-
-	if (utf8.empty()) return L"";
-	int sizeNeeded = MultiByteToWideChar(CP_UTF8, 0, utf8.data(), (int)utf8.size(), nullptr, 0);
-	std::wstring wstrTo(sizeNeeded, 0);
-	MultiByteToWideChar(CP_UTF8, 0, utf8.data(), (int)utf8.size(), &wstrTo[0], sizeNeeded);
-	return wstrTo;
 }
