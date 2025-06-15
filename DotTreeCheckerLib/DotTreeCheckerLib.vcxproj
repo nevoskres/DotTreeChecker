@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="DotTreeCheckerLib.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="graph_utils.cpp" />
     <ClCompile Include="pch.cpp">
