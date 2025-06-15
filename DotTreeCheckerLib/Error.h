@@ -62,7 +62,7 @@ public:
      * @param type Тип ошибки
      * @return Текст сообщения
      */
-    std::string generateErrorMessage(ErrorType type) const;
+    std::string generateErrorMessage() const;
 
     /**
      * @brief Конструктор по умолчанию
