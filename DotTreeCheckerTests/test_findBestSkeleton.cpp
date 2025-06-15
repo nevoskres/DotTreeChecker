@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../DotTreeCheckerLib/graph_utils.h"
+#include "../DotTreeCheckerlib/DotTreeCheckerlib.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;

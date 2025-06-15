@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../DotTreeCheckerLib/Error.h"
+#include "../DotTreeCheckerlib/DotTreeCheckerlib.h"
 
 #include <vector>
 #include <string>
