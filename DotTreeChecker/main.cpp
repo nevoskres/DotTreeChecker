@@ -44,10 +44,7 @@ int main(int argc, char* argv[])
 	{
 		const auto& errors = errorOb.getErrors();
 		for (const auto& err : errors)
-		{
-			std::string msg = err.generateErrorMessage(err.getType());
-			std::cerr << msg << std::endl;
-		}
+			std::cerr << err.generateErrorMessage() << std::endl;
 		return 1;  
 	}
 	
