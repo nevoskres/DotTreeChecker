@@ -54,8 +54,6 @@ string Error::generateErrorMessage(ErrorType type) const
     switch (type)
     {
     case noError: return "";
-    case inFileNotExist: return "ќшибка: файл не найден";
-    case outFileCreateFail: return "ќшибка: не удалось создать выходной файл";
     case emptyFile: return "ќшибка: пустой файл";
     case connectionsError: return "ќшибка: в строке больше одной св€зи Ч " + message;
     case notDiGraph: return "ќшибка: граф не €вл€етс€ орграфом Ч " + message;
