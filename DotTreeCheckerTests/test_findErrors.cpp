@@ -18,8 +18,6 @@ namespace Microsoft {
                 switch (e)
                 {
                 case noError: return L"noError";
-                case inFileNotExist: return L"inFileNotExist";
-                case outFileCreateFail: return L"outFileCreateFail";
                 case emptyFile: return L"emptyFile";
                 case connectionsError: return L"connectionsError";
                 case notDiGraph: return L"notDiGraph";
