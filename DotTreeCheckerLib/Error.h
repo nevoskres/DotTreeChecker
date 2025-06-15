@@ -20,8 +20,6 @@
  */
 enum MYLIB_API ErrorType {
     noError,                   /**< Ошибок нет */
-    inFileNotExist,            /**< Файл не найден */
-    outFileCreateFail,         /**< Не удалось создать выходной файл */
     emptyFile,                 /**< Пустой файл */
     connectionsError,          /**< В строке больше одной связи */
     notDiGraph,                /**< Граф не является орграфом */
