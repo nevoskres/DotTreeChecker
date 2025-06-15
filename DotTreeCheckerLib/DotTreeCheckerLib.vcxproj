@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DotTreeCheckerlib.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="File.h" />
