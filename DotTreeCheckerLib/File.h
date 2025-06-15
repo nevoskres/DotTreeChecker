@@ -34,3 +34,15 @@ MYLIB_API  std::vector<std::string> readFile(const std::string& filename,bool& e
  */
 
 MYLIB_API std::pair<std::string, std::string> extractFilePaths(int argc, char* argv[]);
+
+
+/**
+ * @brief Записывает строки в указанный файл построчно.
+ *
+ * @param lines Вектор строк, который необходимо записать в файл.
+ * @param filename Имя файла (с путём), в который будет производиться запись.
+ * @return true Если файл успешно открыт и данные записаны.
+ * @return false Если не удалось открыть файл для записи.
+ */
+
+MYLIB_API bool writeLinesToFile(const std::vector<std::string>& lines, const std::string& filename);
