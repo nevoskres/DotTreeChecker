@@ -8,6 +8,8 @@
 #define PCH_H
 
 // Добавьте сюда заголовочные файлы для предварительной компиляции
+#pragma execution_character_set("utf-8")
 #include "framework.h"
+
 
 #endif //PCH_H

@@ -1,4 +1,4 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include <string>
 #include <vector>
 #include <cctype>
@@ -45,7 +45,7 @@ namespace
 
 Error::Error(ErrorType t, int n, const string& str) : type(t), numberStr(n), lineStr(str)
 {
-    message = "строка " + std::to_string(n) + ": \"" + str + "\"";
+    message = "СЃС‚СЂРѕРєР° " + std::to_string(n) + ": \"" + str + "\"";
 }
 
 
@@ -54,23 +54,23 @@ std::string Error::generateErrorMessage() const
     switch (type) 
     {
     case noError: return "";
-    case emptyFile: return "Ошибка: пустой файл";
-    case connectionsError: return "Ошибка: в строке больше одной связи — " + message;
-    case notDiGraph: return "Ошибка: граф не является орграфом — " + message;
-    case countConnectionsError: return "Ошибка: слишком много связей — " + message;
-    case countVerticesError: return "Ошибка: слишком много вершин — " + message;
-    case emptyGraph: return "Ошибка: граф пустой";
-    case loopError: return "Ошибка: в графе есть петля — " + message;
-    case multipleConnectionsError: return "Ошибка: в графе есть кратные связи — " + message;
-    case nameVerticesError: return "Ошибка: некорректное имя вершины — " + message;
-    case graphsNotationSyntaxError: return "Ошибка: неверное обозначение графа — " + message;
-    case graphNameSyntaxError: return "Ошибка: неверное имя графа — " + message;
-    case curlyBracketError: return "Ошибка: отсутствует фигурная скобка — " + message;
-    case extraCharacterAfterGraphError: return "Ошибка: лишний символ после тела графа — " + message;
-    case extraCharacterInGraphError: return "Ошибка: лишний символ внутри тела графа — " + message;
-    case connectionsSyntaxError: return "Ошибка: неверное написание дуги — " + message;
+    case emptyFile: return "РћС€РёР±РєР°: РїСѓСЃС‚РѕР№ С„Р°Р№Р»";
+    case connectionsError: return "РћС€РёР±РєР°: РІ СЃС‚СЂРѕРєРµ Р±РѕР»СЊС€Рµ РѕРґРЅРѕР№ СЃРІСЏР·Рё вЂ” " + message;
+    case notDiGraph: return "РћС€РёР±РєР°: РіСЂР°С„ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РѕСЂРіСЂР°С„РѕРј вЂ” " + message;
+    case countConnectionsError: return "РћС€РёР±РєР°: СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ СЃРІСЏР·РµР№ вЂ” " + message;
+    case countVerticesError: return "РћС€РёР±РєР°: СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ РІРµСЂС€РёРЅ вЂ” " + message;
+    case emptyGraph: return "РћС€РёР±РєР°: РіСЂР°С„ РїСѓСЃС‚РѕР№";
+    case loopError: return "РћС€РёР±РєР°: РІ РіСЂР°С„Рµ РµСЃС‚СЊ РїРµС‚Р»СЏ вЂ” " + message;
+    case multipleConnectionsError: return "РћС€РёР±РєР°: РІ РіСЂР°С„Рµ РµСЃС‚СЊ РєСЂР°С‚РЅС‹Рµ СЃРІСЏР·Рё вЂ” " + message;
+    case nameVerticesError: return "РћС€РёР±РєР°: РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ РІРµСЂС€РёРЅС‹ вЂ” " + message;
+    case graphsNotationSyntaxError: return "РћС€РёР±РєР°: РЅРµРІРµСЂРЅРѕРµ РѕР±РѕР·РЅР°С‡РµРЅРёРµ РіСЂР°С„Р° вЂ” " + message;
+    case graphNameSyntaxError: return "РћС€РёР±РєР°: РЅРµРІРµСЂРЅРѕРµ РёРјСЏ РіСЂР°С„Р° вЂ” " + message;
+    case curlyBracketError: return "РћС€РёР±РєР°: РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С„РёРіСѓСЂРЅР°СЏ СЃРєРѕР±РєР° вЂ” " + message;
+    case extraCharacterAfterGraphError: return "РћС€РёР±РєР°: Р»РёС€РЅРёР№ СЃРёРјРІРѕР» РїРѕСЃР»Рµ С‚РµР»Р° РіСЂР°С„Р° вЂ” " + message;
+    case extraCharacterInGraphError: return "РћС€РёР±РєР°: Р»РёС€РЅРёР№ СЃРёРјРІРѕР» РІРЅСѓС‚СЂРё С‚РµР»Р° РіСЂР°С„Р° вЂ” " + message;
+    case connectionsSyntaxError: return "РћС€РёР±РєР°: РЅРµРІРµСЂРЅРѕРµ РЅР°РїРёСЃР°РЅРёРµ РґСѓРіРё вЂ” " + message;
     }
-    return "Неизвестная ошибка — " + message;
+    return "РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР° вЂ” " + message;
 }
 
 
@@ -99,12 +99,12 @@ void Error::findErrors(const vector<string>& lines)
 {
     errors.clear();
 
-    // Пропуск пустых строк в начале файла
+    // РџСЂРѕРїСѓСЃРє РїСѓСЃС‚С‹С… СЃС‚СЂРѕРє РІ РЅР°С‡Р°Р»Рµ С„Р°Р№Р»Р°
     int nonEmpty = 0;
     while (nonEmpty < static_cast<int>(lines.size()) && trim(lines[nonEmpty]).empty())
         ++nonEmpty;
 
-    // Проверка: если файл полностью пустой или только из пробелов
+    // РџСЂРѕРІРµСЂРєР°: РµСЃР»Рё С„Р°Р№Р» РїРѕР»РЅРѕСЃС‚СЊСЋ РїСѓСЃС‚РѕР№ РёР»Рё С‚РѕР»СЊРєРѕ РёР· РїСЂРѕР±РµР»РѕРІ
     if (nonEmpty == static_cast<int>(lines.size())) {
         errors.emplace_back(emptyFile, 0, "");
         return;
@@ -125,7 +125,7 @@ void Error::findErrors(const vector<string>& lines)
         }
     }
 
-    // Если слово digraph корректно, дальше извлекаем имя
+    // Р•СЃР»Рё СЃР»РѕРІРѕ digraph РєРѕСЂСЂРµРєС‚РЅРѕ, РґР°Р»СЊС€Рµ РёР·РІР»РµРєР°РµРј РёРјСЏ
     if (firstWordLower == "digraph") {
         size_t posAfterFirstWord = firstLineRaw.find_first_not_of(" \t", firstWord.size());
         string graphName;
@@ -148,14 +148,14 @@ void Error::findErrors(const vector<string>& lines)
     }
 
 
-    // Пропуск пустых строк после заголовка
+    // РџСЂРѕРїСѓСЃРє РїСѓСЃС‚С‹С… СЃС‚СЂРѕРє РїРѕСЃР»Рµ Р·Р°РіРѕР»РѕРІРєР°
     ++nonEmpty;
     while (nonEmpty < static_cast<int>(lines.size()) && trim(lines[nonEmpty]).empty())
         ++nonEmpty;
 
-    // Проверка наличия открывающей фигурной скобки '{'
+    // РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РѕС‚РєСЂС‹РІР°СЋС‰РµР№ С„РёРіСѓСЂРЅРѕР№ СЃРєРѕР±РєРё '{'
     if (nonEmpty >= static_cast<int>(lines.size())) {
-        errors.emplace_back(curlyBracketError, nonEmpty + 1, "нет строки с открывающей фигурной скобкой");
+        errors.emplace_back(curlyBracketError, nonEmpty + 1, "РЅРµС‚ СЃС‚СЂРѕРєРё СЃ РѕС‚РєСЂС‹РІР°СЋС‰РµР№ С„РёРіСѓСЂРЅРѕР№ СЃРєРѕР±РєРѕР№");
         return;
     }
 
@@ -167,7 +167,7 @@ void Error::findErrors(const vector<string>& lines)
         errors.emplace_back(extraCharacterInGraphError, nonEmpty + 1, lines[nonEmpty]);
     }
 
-    // Основной анализ тела графа
+    // РћСЃРЅРѕРІРЅРѕР№ Р°РЅР°Р»РёР· С‚РµР»Р° РіСЂР°С„Р°
     set<pair<string, string>> edges;
     set<string> vertices;
     int edgeCount = 0;
@@ -177,15 +177,15 @@ void Error::findErrors(const vector<string>& lines)
         string line = trim(lines[nonEmpty]);
         if (line.empty()) continue;
 
-        // Завершение проверки при нахождении закрывающей скобки
+        // Р—Р°РІРµСЂС€РµРЅРёРµ РїСЂРѕРІРµСЂРєРё РїСЂРё РЅР°С…РѕР¶РґРµРЅРёРё Р·Р°РєСЂС‹РІР°СЋС‰РµР№ СЃРєРѕР±РєРё
         if (!line.empty() && line[0] == '}') {
             if (line.size() > 1) {
                 errors.emplace_back(extraCharacterAfterGraphError, nonEmpty + 1, line);
             }
-            break; // закрывающая скобка найдена — заканчиваем анализ тела графа
+            break; // Р·Р°РєСЂС‹РІР°СЋС‰Р°СЏ СЃРєРѕР±РєР° РЅР°Р№РґРµРЅР° вЂ” Р·Р°РєР°РЅС‡РёРІР°РµРј Р°РЅР°Р»РёР· С‚РµР»Р° РіСЂР°С„Р°
         }
 
-        // Проверка на множественные связи в одной строке
+        // РџСЂРѕРІРµСЂРєР° РЅР° РјРЅРѕР¶РµСЃС‚РІРµРЅРЅС‹Рµ СЃРІСЏР·Рё РІ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ
         size_t arrowCount = 0, searchPos = 0;
         while ((searchPos = line.find("->", searchPos)) != string::npos) {
             ++arrowCount;
@@ -196,7 +196,7 @@ void Error::findErrors(const vector<string>& lines)
             continue;
         }
 
-        // Проверка синтаксиса дуги (->)
+        // РџСЂРѕРІРµСЂРєР° СЃРёРЅС‚Р°РєСЃРёСЃР° РґСѓРіРё (->)
         size_t arrowPos = line.find("->");
         if (arrowPos == string::npos)
         {
@@ -211,17 +211,17 @@ void Error::findErrors(const vector<string>& lines)
             continue;
         }
 
-        // Извлечение вершин и их валидация
+        // РР·РІР»РµС‡РµРЅРёРµ РІРµСЂС€РёРЅ Рё РёС… РІР°Р»РёРґР°С†РёСЏ
         string from = trim(line.substr(0, arrowPos));
         string toPart = trim(line.substr(arrowPos + 2));
 
-        // Если в конце 'toPart' есть ';', убрать его
+        // Р•СЃР»Рё РІ РєРѕРЅС†Рµ 'toPart' РµСЃС‚СЊ ';', СѓР±СЂР°С‚СЊ РµРіРѕ
         if (!toPart.empty() && toPart.back() == ';') {
             toPart.pop_back();
             toPart = trim(toPart);
         }
 
-        // Выделяем число в 'to' и возможные лишние символы
+        // Р’С‹РґРµР»СЏРµРј С‡РёСЃР»Рѕ РІ 'to' Рё РІРѕР·РјРѕР¶РЅС‹Рµ Р»РёС€РЅРёРµ СЃРёРјРІРѕР»С‹
         size_t posNum = 0;
         while (posNum < toPart.size() && isdigit(static_cast<unsigned char>(toPart[posNum]))) {
             ++posNum;
@@ -237,7 +237,7 @@ void Error::findErrors(const vector<string>& lines)
 
         bool vertexNameErrorFound = false;
 
-        // Проверка from
+        // РџСЂРѕРІРµСЂРєР° from
         if (!isNumber(from))
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
@@ -249,7 +249,7 @@ void Error::findErrors(const vector<string>& lines)
             vertexNameErrorFound = true;
         }
 
-        // Проверка toNumber
+        // РџСЂРѕРІРµСЂРєР° toNumber
         if (!isNumber(toNumber))
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
@@ -261,13 +261,13 @@ void Error::findErrors(const vector<string>& lines)
         }
 
       
-        // Проверка наличия петли
+        // РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РїРµС‚Р»Рё
         if (from == toNumber)
         {
             errors.emplace_back(loopError, nonEmpty + 1, line);
         }
 
-        // Проверка кратных связей
+        // РџСЂРѕРІРµСЂРєР° РєСЂР°С‚РЅС‹С… СЃРІСЏР·РµР№
         pair<string, string> edge = { from, toNumber };
         if (edges.count(edge))
         {
@@ -278,7 +278,7 @@ void Error::findErrors(const vector<string>& lines)
             edges.insert(edge);
         }
 
-        // Учет вершин и количества дуг
+        // РЈС‡РµС‚ РІРµСЂС€РёРЅ Рё РєРѕР»РёС‡РµСЃС‚РІР° РґСѓРі
         vertices.insert(from);
         vertices.insert(toNumber);
 
@@ -295,11 +295,11 @@ void Error::findErrors(const vector<string>& lines)
     }
 
     if (nonEmpty == static_cast<int>(lines.size())) {
-        // Закрывающая скобка не найдена
-        errors.emplace_back(curlyBracketError, nonEmpty + 1, "отсутствует закрывающая фигурная скобка");
+        // Р—Р°РєСЂС‹РІР°СЋС‰Р°СЏ СЃРєРѕР±РєР° РЅРµ РЅР°Р№РґРµРЅР°
+        errors.emplace_back(curlyBracketError, nonEmpty + 1, "РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ Р·Р°РєСЂС‹РІР°СЋС‰Р°СЏ С„РёРіСѓСЂРЅР°СЏ СЃРєРѕР±РєР°");
     }
     else {
-        // Проверка лишних строк после закрывающей скобки
+        // РџСЂРѕРІРµСЂРєР° Р»РёС€РЅРёС… СЃС‚СЂРѕРє РїРѕСЃР»Рµ Р·Р°РєСЂС‹РІР°СЋС‰РµР№ СЃРєРѕР±РєРё
         for (int i = nonEmpty + 1; i < static_cast<int>(lines.size()); ++i) {
             if (!trim(lines[i]).empty()) {
                 errors.emplace_back(extraCharacterAfterGraphError, i + 1, lines[i]);
@@ -307,7 +307,7 @@ void Error::findErrors(const vector<string>& lines)
         }
     }
 
-    // Проверка на пустой граф (нет вершин)
+    // РџСЂРѕРІРµСЂРєР° РЅР° РїСѓСЃС‚РѕР№ РіСЂР°С„ (РЅРµС‚ РІРµСЂС€РёРЅ)
     if (vertices.empty())
     {
         errors.emplace_back(emptyGraph, nonEmpty + 1, "{");
@@ -317,7 +317,7 @@ void Error::findErrors(const vector<string>& lines)
         errors.emplace_back(countVerticesError, nonEmpty + 1, "");
     }
 
-    // Проверка на превышение допустимого числа дуг
+    // РџСЂРѕРІРµСЂРєР° РЅР° РїСЂРµРІС‹С€РµРЅРёРµ РґРѕРїСѓСЃС‚РёРјРѕРіРѕ С‡РёСЃР»Р° РґСѓРі
     if (edgeCount > 110)
     {
         errors.emplace_back(countConnectionsError, nonEmpty + 1, "");

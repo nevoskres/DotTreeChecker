@@ -1,4 +1,4 @@
-#include <locale> 
+ï»¿#include <locale> 
 #include <windows.h> 
 #include <iostream>
 #include <fstream>
@@ -32,16 +32,15 @@ int main(int argc, char* argv[])
 	auto filePaths = extractFilePaths(argc,argv);
 	string inputFP = filePaths.first;
 	string outputFP = filePaths.second;
-
 	
 	if (inputFP.empty())
 	{
-		wcerr << L"Íå óêàçàí âõîäíîé ôàéë\n";
+		wcerr << L"ÐÐµ ÑƒÐºÐ°Ð·Ð°Ð½ Ð²Ñ…Ð¾Ð´Ð½Ð¾Ð¹ Ñ„Ð°Ð¹Ð»\n";
 		return 1;
 	}
 	else if (outputFP.empty())
 	{
-		wcerr << L"Íå óêàçàí âûõîäíîé ôàéë\n";
+		wcerr << L"ÐÐµ ÑƒÐºÐ°Ð·Ð°Ð½ Ð²Ñ‹Ñ…Ð¾Ð´Ð½Ð¾Ð¹ Ñ„Ð°Ð¹Ð»\n";
 		return 1;
 	}
 
