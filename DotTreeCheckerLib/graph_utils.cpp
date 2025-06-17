@@ -69,12 +69,62 @@ vector<pair<int, int>> findBestSkeleton(vector<vector<int>> matrixCopy)
 	return skeleton;
 }
 
+string trim(const string& s) 
+{
+	size_t start = 0;
+	while (start < s.size() && isspace(static_cast<unsigned char>(s[start]))) {
+		++start;
+	}
+	size_t end = s.size();
+	while (end > start && isspace(static_cast<unsigned char>(s[end - 1]))) {
+		--end;
+	}
+	return s.substr(start, end - start);
+}
+
+vector<string> cleanLines(const vector<string>& lines) 
+{
+	vector<string> result;
+	for (const auto& line : lines) {
+		
+		string trimmed = trim(line);
+		
+		if (!trimmed.empty()) 
+		{
+			result.push_back(trimmed);
+		}
+	}
+	return result;
+}
+
+string extractGraphName(const vector<string>& dotLines) 
+{
+	if (dotLines.empty()) return "G";
+
+	const string& line = dotLines.front();
+
+	size_t pos = line.find("digraph");
+	if (pos == string::npos) return "G";
+
+	pos += 7;
+
+	while (pos < line.size() && isspace(static_cast<unsigned char>(line[pos]))) ++pos;
+
+	string name;
+	while (pos < line.size() && (isalnum(static_cast<unsigned char>(line[pos])) || line[pos] == '_')) {
+		name += line[pos++];
+	}
+
+	return name.empty() ? "G" : name;
+}
 
 Graph parseDotFile(const vector<string>& lines)
 {
 
 	Graph g;
 	g.setDotStringGraph(lines);
+
+	string graphName = extractGraphName(lines);
 
 	map<int, int> vertexToIndex;        // отображение: имя вершины индекс
 	vector<int> indexToVertex;          // обратное отображение: индекс имя вершины
@@ -83,7 +133,8 @@ Graph parseDotFile(const vector<string>& lines)
 	// Обрабатываем строки
 	for (const string& line : lines)
 	{
-		if (line == "digraph G" || line == "{" || line == "}") continue;
+		if (line == "{" || line == "}") continue;
+		if (line == "digraph " + graphName) continue;
 
 		size_t arrowPos = line.find("->");
 		if (arrowPos != string::npos)
@@ -132,58 +183,6 @@ Graph parseDotFile(const vector<string>& lines)
 
 	return g;
 }
-
-
-string trim(const string& s) 
-{
-	size_t start = 0;
-	while (start < s.size() && isspace(static_cast<unsigned char>(s[start]))) {
-		++start;
-	}
-	size_t end = s.size();
-	while (end > start && isspace(static_cast<unsigned char>(s[end - 1]))) {
-		--end;
-	}
-	return s.substr(start, end - start);
-}
-
-vector<string> cleanLines(const vector<string>& lines) 
-{
-	vector<string> result;
-	for (const auto& line : lines) {
-		
-		string trimmed = trim(line);
-		
-		if (!trimmed.empty()) 
-		{
-			result.push_back(trimmed);
-		}
-	}
-	return result;
-}
-
-
-string extractGraphName(const vector<string>& dotLines) 
-{
-	if (dotLines.empty()) return "G";
-
-	const string& line = dotLines.front();
-
-	size_t pos = line.find("digraph");
-	if (pos == string::npos) return "G";
-
-	pos += 7;
-
-	while (pos < line.size() && isspace(static_cast<unsigned char>(line[pos]))) ++pos;
-
-	string name;
-	while (pos < line.size() && (isalnum(static_cast<unsigned char>(line[pos])) || line[pos] == '_')) {
-		name += line[pos++];
-	}
-
-	return name.empty() ? "G" : name;
-}
-
 
 vector<string> writeDotFile(
 	const vector<vector<int>>& adjacencyMatrix,
