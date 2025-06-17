@@ -95,6 +95,8 @@ const vector<Error>& Error::getErrors() const
 }
 
 
+
+
 void Error::findErrors(const vector<string>& lines)
 {
     errors.clear();
@@ -113,7 +115,6 @@ void Error::findErrors(const vector<string>& lines)
     const string& firstLineRaw = trim(lines[nonEmpty]);
     string firstWord = getFirstWord(firstLineRaw);
     string firstWordLower = toLowerCopy(firstWord);
-  
 
     if (firstWordLower != "digraph") {
         if (firstWordLower == "graph") {
@@ -146,7 +147,6 @@ void Error::findErrors(const vector<string>& lines)
             }
         }
     }
-
 
     // Пропуск пустых строк после заголовка
     ++nonEmpty;
@@ -196,16 +196,25 @@ void Error::findErrors(const vector<string>& lines)
             continue;
         }
 
-        // Проверка синтаксиса дуги (->)
         size_t arrowPos = line.find("->");
-        if (arrowPos == string::npos)
-        {
-            if (line.find("--") != string::npos)
-            {
-                errors.emplace_back(connectionsSyntaxError, nonEmpty + 1, line);
+        if (arrowPos == string::npos) {
+            // Нет ребра — возможно, изолированная вершина
+            // Проверим строку на корректное число с точкой с запятой
+            string vertexStr = line;
+            if (!vertexStr.empty() && vertexStr.back() == ';') {
+                vertexStr.pop_back();
+                vertexStr = trim(vertexStr);
             }
-            else if (line.find('>') != string::npos || line.find('<') != string::npos)
-            {
+
+            auto isNumber = [](const string& s) {
+                return !s.empty() && all_of(s.begin(), s.end(), ::isdigit);
+                };
+
+            if (isNumber(vertexStr)) {
+                // Корректная изолированная вершина
+                vertices.insert(vertexStr);
+            }
+            else if (line.find("--") != string::npos || line.find('>') != string::npos || line.find('<') != string::npos) {
                 errors.emplace_back(connectionsSyntaxError, nonEmpty + 1, line);
             }
             continue;
@@ -260,7 +269,6 @@ void Error::findErrors(const vector<string>& lines)
             vertexNameErrorFound = true;
         }
 
-      
         // Проверка наличия петли
         if (from == toNumber)
         {
@@ -322,10 +330,4 @@ void Error::findErrors(const vector<string>& lines)
     {
         errors.emplace_back(countConnectionsError, nonEmpty + 1, "");
     }
-
-   
-
 }
-
-
-
