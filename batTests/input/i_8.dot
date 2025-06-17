@@ -1,0 +1,4 @@
+digraph Loop 
+{
+    1 -> 1;
+}

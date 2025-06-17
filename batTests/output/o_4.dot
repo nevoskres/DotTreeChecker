@@ -1,0 +1,5 @@
+digraph OneEdge
+{
+    1 -> 2;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}

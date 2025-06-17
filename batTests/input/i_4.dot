@@ -1,0 +1,4 @@
+digraph OneEdge 
+{
+    1 -> 2;
+}

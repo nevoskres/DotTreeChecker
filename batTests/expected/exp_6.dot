@@ -1,0 +1,6 @@
+digraph Chain 
+{
+    1 -> 2;
+    2 -> 3;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}

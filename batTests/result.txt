@@ -1,0 +1,200 @@
+[TESTING STARTED] 
+Start time: 17.06.2025 22:58:08,28 
+======================================== 
+[Test 1] Input: input\i_1.dot 
+[Test 1] Running program... 
+[Test 1] Expected output content: 
+---------------------------------------- 
+[Test 1] Actual output content: 
+======================================== 
+[Test 2] Input: input\i_2.dot 
+[Test 2] Running program... 
+[Test 2] Expected output content: 
+digraph SingleVertex 
+{
+    1;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}
+---------------------------------------- 
+[Test 2] Actual output content: 
+======================================== 
+[Test 3] Input: input\i_3.dot 
+[Test 3] Running program... 
+[Test 3] Expected output content: 
+---------------------------------------- 
+[Test 3] Actual output content: 
+======================================== 
+[Test 4] Input: input\i_4.dot 
+[Test 4] Running program... 
+[Test 4] Expected output content: 
+digraph OneEdge 
+{
+    1 -> 2;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}---------------------------------------- 
+[Test 4] Actual output content: 
+digraph OneEdge
+{
+    1 -> 2;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}
+======================================== 
+[Test 5] Input: input\i_5.dot 
+[Test 5] Running program... 
+[Test 5] Expected output content: 
+digraph Cycle3 
+{
+    1 -> 2;
+    2 -> 3;
+    3 -> 1 [color=red];
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}
+---------------------------------------- 
+[Test 5] Actual output content: 
+digraph Cycle3
+{
+    1 -> 2;
+    2 -> 3;
+    3 -> 1 [color=red];
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}
+======================================== 
+[Test 6] Input: input\i_6.dot 
+[Test 6] Running program... 
+[Test 6] Expected output content: 
+digraph Chain 
+{
+    1 -> 2;
+    2 -> 3;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}
+---------------------------------------- 
+[Test 6] Actual output content: 
+digraph Chain
+{
+    1 -> 2;
+    2 -> 3;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}
+======================================== 
+[Test 7] Input: input\i_7.dot 
+[Test 7] Running program... 
+[Test 7] Expected output content: 
+digraph MissingSemicolon 
+{
+    1 -> 2;
+    2 -> 3;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}
+---------------------------------------- 
+[Test 7] Actual output content: 
+digraph IsolatedAndEdge
+{
+    1 [color=red];
+    2 -> 3;
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}
+======================================== 
+[Test 8] Input: input\i_8.dot 
+[Test 8] Running program... 
+[Test 8] Expected output content: 
+---------------------------------------- 
+[Test 8] Actual output content: 
+======================================== 
+[Test 9] Input: input\i_9.dot 
+[Test 9] Running program... 
+[Test 9] Expected output content: 
+digraph MixedEdges 
+{
+    1 -> 2;
+    2 -> 3;
+    3 -> 4;
+    4 -> 1 [color=red];
+    2 -> 4 [color=red];
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}
+---------------------------------------- 
+[Test 9] Actual output content: 
+digraph MixedEdges
+{
+    1 -> 2;
+    2 -> 3;
+    2 -> 4 [color=red];
+    3 -> 4;
+    4 -> 1 [color=red];
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}
+======================================== 
+[Test 10] Input: input\i_10.dot 
+[Test 10] Running program... 
+[Test 10] Expected output content: 
+digraph IsolatedVertices 
+{
+    1;
+    2 [color=red];
+    3 [color=red];
+    4 [color=red];
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}---------------------------------------- 
+[Test 10] Actual output content: 
+======================================== 
+[Test 11] Input: input\i_11.dot 
+[Test 11] Running program... 
+[Test 11] Expected output content: 
+---------------------------------------- 
+[Test 11] Actual output content: 
+======================================== 
+[Test 12] Input: input\i_12.dot 
+[Test 12] Running program... 
+[Test 12] Expected output content: 
+digraph MissingSemicolon 
+{
+    1 -> 2;
+    2 -> 3;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}---------------------------------------- 
+[Test 12] Actual output content: 
+digraph MissingSemicolon
+{
+    1 -> 2;
+    2 -> 3;
+    c[color = green label = "Граф является деревом", fontcolor = green];
+}
+======================================== 
+[Test 13] Input: input\i_13.dot 
+[Test 13] Running program... 
+[Test 13] Expected output content: 
+---------------------------------------- 
+[Test 13] Actual output content: 
+======================================== 
+[Test 14] Input: input\i_14.dot 
+[Test 14] Running program... 
+[Test 14] Expected output content: 
+digraph IsolatedPart
+{
+    1 -> 2;
+    2 -> 3;
+    4 [color=red];
+    5 [color=red];
+    4 -> 5 [color=red];
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}
+
+
+
+
+---------------------------------------- 
+[Test 14] Actual output content: 
+digraph IsolatedPart
+{
+    1 -> 2;
+    2 -> 3;
+    4 [color=red];
+    5 [color=red];
+    4 -> 5 [color=red];
+    c[color = red label = "Если при удалении рекомендуемой дуги остается изолированная вершина, такую вершину следует удалить"];
+}
+======================================== 
+ 
+[TESTING COMPLETE] 
+End time: 17.06.2025 22:58:10,98 
