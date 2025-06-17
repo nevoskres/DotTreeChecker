@@ -168,6 +168,7 @@
     <ClCompile Include="test_findBestSkeleton.cpp" />
     <ClCompile Include="test_findErrors.cpp" />
     <ClCompile Include="test_parseDotFile.cpp" />
+    <ClCompile Include="test_writeDotFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

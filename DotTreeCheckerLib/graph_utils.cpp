@@ -184,6 +184,7 @@ string extractGraphName(const vector<string>& dotLines)
 	return name.empty() ? "G" : name;
 }
 
+
 vector<string> writeDotFile(
 	const vector<vector<int>>& adjacencyMatrix,
 	const vector<int>& indexToVertex,
@@ -208,6 +209,14 @@ vector<string> writeDotFile(
 	int n = static_cast<int>(adjacencyMatrix.size());
 	bool allInPath = true;
 
+	bool isSingleVertexTree = false;
+	if (n == 1 && pathEdges.size() == 1) {
+		auto edge = *pathEdges.begin();
+		if (edge.first == edge.second) {
+			isSingleVertexTree = true;
+		}
+	}
+
 	for (int i = 0; i < n; ++i) {
 		bool hasOutgoing = false, hasIncoming = false;
 		for (int j = 0; j < n; ++j) {
@@ -216,9 +225,14 @@ vector<string> writeDotFile(
 			if (hasOutgoing && hasIncoming) break;
 		}
 
-		if (!hasOutgoing && !hasIncoming && pathVertices.count(i) == 0) {
-			dot.push_back("    " + to_string(indexToVertex[i]) + " " + messages.forRemove + ";");
-			allInPath = false;
+		if (!hasOutgoing && !hasIncoming) {
+			string line = "    " + to_string(indexToVertex[i]);
+			if (pathVertices.count(i) == 0) {
+				line += " " + messages.forRemove;
+				allInPath = false;
+			}
+			line += ";";
+			dot.push_back(line);
 		}
 	}
 
@@ -249,7 +263,7 @@ vector<string> writeDotFile(
 		}
 	}
 
-	if (allInPath) {
+	if (isSingleVertexTree || allInPath) {
 		dot.push_back("    " + messages.graphIsTree + ";");
 	}
 	else {
