@@ -11,8 +11,8 @@ void DFS(int start, vector<bool>& visited, vector<vector<int>>& adjMatrix, vecto
 	//Проходим по всем возможным соседям текущей вершины
 	for (int neighbor = 0; neighbor < adjMatrix.size(); ++neighbor)
 	{
-		//Если существует ребро от start к соседу и если сосед ещё не посещён
-		if (adjMatrix[start][neighbor] == 1 && !visited[neighbor])
+		
+		if (adjMatrix[start][neighbor] == 1 && !visited[neighbor])   //Если существует ребро от start к соседу и если сосед ещё не посещён
 		{
 			//Помечаем дугу как часть остова
 			adjMatrix[start][neighbor] = 2;
@@ -46,8 +46,8 @@ vector<pair<int, int>> findBestSkeleton(vector<vector<int>> matrixCopy)
 
 		int visitedCount = int(count(visited.begin(), visited.end(), true));
 
-		//Если количество посещенных вершин из текущей больше чем у предыдущей
-		if (visitedCount > maxVisited)
+		
+		if (visitedCount > maxVisited)   //Если количество посещенных вершин из текущей больше чем у предыдущей
 		{
 			//Записать новое количество вершин как максимально 
 			maxVisited = visitedCount;
@@ -58,8 +58,8 @@ vector<pair<int, int>> findBestSkeleton(vector<vector<int>> matrixCopy)
 		}
 	}
 
-	// Если остов пуст (нет дуг), но вершина есть, добавить "псевдо-ребро"
-	if (skeleton.empty() && bestStartVertex != -1)
+	
+	if (skeleton.empty() && bestStartVertex != -1)   // Если остов пуст (нет дуг), но вершина есть, добавить "псевдо-ребро"
 	{
 		//Добавить ребро из вершины в саму себя 
 		skeleton.push_back({ bestStartVertex, bestStartVertex });
@@ -71,50 +71,70 @@ vector<pair<int, int>> findBestSkeleton(vector<vector<int>> matrixCopy)
 
 string trim(const string& s) 
 {
+	// Находим индекс первого непробельного символа с начала строки
 	size_t start = 0;
 	while (start < s.size() && isspace(static_cast<unsigned char>(s[start]))) {
 		++start;
 	}
+
+	// Находим индекс последнего непробельного символа с конца строки
 	size_t end = s.size();
 	while (end > start && isspace(static_cast<unsigned char>(s[end - 1]))) {
 		--end;
 	}
+
+	// Возвращаем подстроку без пробелов в начале и конце
 	return s.substr(start, end - start);
 }
 
 vector<string> cleanLines(const vector<string>& lines) 
 {
 	vector<string> result;
-	for (const auto& line : lines) {
-		
+
+
+	for (const auto& line : lines) // Для каждой строки
+	{
+		// Удаляем пробелы по краям строки
 		string trimmed = trim(line);
 		
+		// Если строка не пустая после обрезки — добавляем в результат
 		if (!trimmed.empty()) 
 		{
 			result.push_back(trimmed);
 		}
 	}
+
+	// Возвращаем очищенный вектор строк
 	return result;
 }
 
 string extractGraphName(const vector<string>& dotLines) 
 {
-	if (dotLines.empty()) return "G";
+	// Если входной вектор пуст — возвращаем имя по умолчанию
+	if (dotLines.empty()) 
+		return "G";
 
+	// В первой строке ищем позицию "digraph"
 	const string& line = dotLines.front();
-
 	size_t pos = line.find("digraph");
-	if (pos == string::npos) return "G";
 
+	// Если "digraph" не найдено — вернуть "G"
+	if (pos == string::npos) 
+		return "G";
+
+	// Переходим за слово "digraph"
 	pos += 7;
 
+	// Пропускаем пробелы после "digraph"
 	while (pos < line.size() && isspace(static_cast<unsigned char>(line[pos]))) ++pos;
 
+	// Считываем имя графа: допускаются буквы, цифры и подчёркивания
 	string name;
 	while (pos < line.size() && (isalnum(static_cast<unsigned char>(line[pos])) || line[pos] == '_')) {
 		name += line[pos++];
 	}
 
+	// Если имя не найдено — вернуть "G" иначе вернуть найденное имя
 	return name.empty() ? "G" : name;
 }
 
@@ -139,7 +159,7 @@ Graph parseDotFile(const vector<string>& lines)
 		size_t arrowPos = line.find("->");
 		if (arrowPos != string::npos)
 		{
-			// Дуга: a->b
+			// Обработка дуги вида "a->b"
 			int from = stoi(line.substr(0, arrowPos));
 			int to = stoi(line.substr(arrowPos + 2));
 
@@ -157,7 +177,7 @@ Graph parseDotFile(const vector<string>& lines)
 		}
 		else
 		{
-			// Изолированная вершина
+			// Обработка изолированной вершины (без дуг)
 			int v = stoi(line);
 			if (vertexToIndex.find(v) == vertexToIndex.end()) {
 				vertexToIndex[v] = indexToVertex.size();
@@ -177,6 +197,7 @@ Graph parseDotFile(const vector<string>& lines)
 		adjacencyMatrix[i][j] = 1;
 	}
 
+	// Записываем данные в объект Graph
 	g.setVertexToIndex(vertexToIndex);
 	g.setIndexToVertex(indexToVertex);
 	g.setAdjacencyMatrix(adjacencyMatrix);
@@ -216,6 +237,7 @@ vector<string> writeDotFile(
 		}
 	}
 
+	// Обработка изолированных вершин
 	for (int i = 0; i < n; ++i) {
 		bool hasOutgoing = false, hasIncoming = false;
 		for (int j = 0; j < n; ++j) {
@@ -235,6 +257,7 @@ vector<string> writeDotFile(
 		}
 	}
 
+	// Обработка дуг
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
 			if (adjacencyMatrix[i][j] != 0) {
@@ -246,6 +269,7 @@ vector<string> writeDotFile(
 					line += " " + messages.forRemove;
 					allInPath = false;
 
+					// Отметить вершины, если они ранее не были упомянуты
 					if (pathVertices.count(i) == 0) {
 						dot.push_back("    " + from + " " + messages.forRemove + ";");
 						pathVertices.insert(i);
@@ -262,6 +286,7 @@ vector<string> writeDotFile(
 		}
 	}
 
+	// Добавляем финальное сообщение о том, является ли граф деревом
 	if (isSingleVertexTree || allInPath) {
 		dot.push_back("    " + messages.graphIsTree + ";");
 	}
