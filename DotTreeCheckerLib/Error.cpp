@@ -62,7 +62,7 @@ std::string Error::generateErrorMessage() const
     case emptyGraph: return "Ошибка: граф пустой";
     case loopError: return "Ошибка: в графе есть петля — " + message;
     case multipleConnectionsError: return "Ошибка: в графе есть кратные связи — " + message;
-    case nameVerticesError: return "Ошибка: некорректное имя вершины — " + message;
+    case nameVerticesError: return "Ошибка: некорректное имя вершины (допустимое имя - числа в диапазоне [0;10])— " + message;
     case graphsNotationSyntaxError: return "Ошибка: неверное обозначение графа — " + message;
     case graphNameSyntaxError: return "Ошибка: неверное имя графа — " + message;
     case curlyBracketError: return "Ошибка: отсутствует фигурная скобка — " + message;
@@ -252,7 +252,7 @@ void Error::findErrors(const vector<string>& lines)
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
             vertexNameErrorFound = true;
         }
-        else if (stoi(from) > 10)
+        else if (from.size() > 2 || stoi(from) > 10)
         {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
             vertexNameErrorFound = true;
@@ -264,7 +264,8 @@ void Error::findErrors(const vector<string>& lines)
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
             vertexNameErrorFound = true;
         }
-        else if (stoi(toNumber) > 10) {
+        else if (toNumber.size() > 2 || stoi(toNumber) > 10)
+        {
             errors.emplace_back(nameVerticesError, nonEmpty + 1, line);
             vertexNameErrorFound = true;
         }
